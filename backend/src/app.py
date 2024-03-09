@@ -77,4 +77,8 @@ def create_user():
         lname=lname,
         birthdate=birthdate,
         sex=sex
-    )   
+    ) 
+
+    db.session.add(patient)
+    db.session.commit()
+    return success_response(patient.serialize(), 201)
