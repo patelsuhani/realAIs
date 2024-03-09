@@ -82,3 +82,7 @@ def create_user():
     db.session.add(patient)
     db.session.commit()
     return success_response(patient.serialize(), 201)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)
