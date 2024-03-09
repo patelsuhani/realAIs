@@ -50,10 +50,11 @@ class Patient(db.Model):
     Initialize a patient object
     """
     self.username = kwargs.get("username")
-    self.password = kwargs.get("")
+    self.password = kwargs.get("password")
+    self.email = kwargs.get("email")
     self.fname = kwargs.get("fname")
     self.lname = kwargs.get("lname")
-    self.date = kwargs.get("date")
+    self.birthdate = kwargs.get("birthdate")
     self.sex = kwargs.get("sex")
 
   def serialize(self):
