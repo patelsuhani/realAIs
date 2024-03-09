@@ -2,6 +2,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+condition_association_table = db.Table("condiiton_association", db.Model.metadata,
+                                       db.Column("condition_id", db.Integer, db.ForeignKey("courses.id")),
+                                       db.Column("patient_id"), db.Integer, db.ForeignKey("patients.id"))
+
+
 class User(db.Model):
   """
   User Model
@@ -42,6 +47,8 @@ class Patient(db.Model):
   sex = db.Column(db.String, nullable=False)
   guardian_id = db.Column(db.Integer, nullable=False)
 
+  registered_diseases = db.relationship("Conditions", cascade="delete")
+
   def __init__(self, **kwargs):
     """
     Initialize a patient object
@@ -63,49 +70,69 @@ class Patient(db.Model):
       "lname": self.lname,
       "birthdate": self.birthdate,
       "sex": self.sex,
-      "guardian_id": self.guardian_id
+      "guardian_id": self.guardian_id,
+      "registered_conditions": Conditions.query.filter_by()
     }
   
-  class Guardian(db.Model):
+class Guardian(db.Model):
+  """
+  Guardian Model (Parent or Legal Guardian of Patient)
+  """
+  __tablename__="guardians"
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  fname = db.Column(db.String, nullable=False)
+  lname = db.Column(db.String, nullable=False)
+  number = db.Column(db.String, nullable=False)
+  email = db.Column(db.String, nullable=False)
+
+  user_id = db.Column(db.ForeignKey("users.id"))
+  password = db.Column(db.ForeignKey("users.password"))
+  username = db.Column(db.ForeignKey("users.username"))
+  email = db.Column(db.ForeignKey("users.email"))
+
+  # Ensures that the patient (child) is dependent on the legal guardian's account
+  # if the guardian is removed from the application, all patients related to that
+  # guardian are likewise removed from the application
+  dependents = db.relationship("Patient", cascade="delete")
+
+  def __init__(self, **kwargs):
     """
-    Guardian Model (Parent or Legal Guardian of Patient)
+    Initialize a guardian object
     """
-    __tablename__="guardians"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    fname = db.Column(db.String, nullable=False)
-    lname = db.Column(db.String, nullable=False)
-    number = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False)
+    self.fname = kwargs.get("fname")
+    self.lname = kwargs.get("lname")
+    self.number = kwargs.get("number")
+    self.email = kwargs.get("email")
+    self.username = kwargs.get("username")
 
-    user_id = db.Column(db.ForeignKey("users.id"))
-    password = db.Column(db.ForeignKey("users.password"))
-    username = db.Column(db.ForeignKey("users.username"))
-    email = db.Column(db.ForeignKey("users.email"))
+  def serialize(self):
+    """
+    Serialize a guardian object
+    """
+    return {
+      "id": self.id,
+      "fname": self.fname,
+      "lname": self.lname,
+      "email": self.email,
+      "number": self.number,
+      "username": self.username
+    }
+    
+class Conditions(db.Model):
+  """
+  Conditions Model
+  """
+  __tablename__ = "conditions"
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  name = db.Column(db.String, nullable=False)
 
-    # Ensures that the patient (child) is dependent on the legal guardian's account
-    # if the guardian is removed from the application, all patients related to that
-    # guardian are likewise removed from the application
-    dependents = db.relationship("Patient", cascade="delete")
+  def returnName(self):
+    """
+    Returns the name of a given condition
+    """
+    return {
+      "name": self.name
+    }
 
-    def __init__(self, **kwargs):
-      """
-      Initialize a guardian object
-      """
-      self.fname = kwargs.get("fname")
-      self.lname = kwargs.get("lname")
-      self.number = kwargs.get("number")
-      self.email = kwargs.get("email")
-      self.username = kwargs.get("username")
 
-    def serialize(self):
-      """
-      Serialize a guardian object
-      """
-      return {
-        "id": self.id,
-        "fname": self.fname,
-        "lname": self.lname,
-        "email": self.email,
-        "number": self.number,
-        "username": self.username
-      }
+  
