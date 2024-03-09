@@ -1,7 +1,7 @@
 import json
 from flask import request
 from db import db
-from db import User, Patient
+from db import User, Patient, Guardian
 from flask import Flask
 
 app = Flask(__name__)
@@ -25,30 +25,22 @@ def failure_response(message, code=404):
     return json.dumps({"error": message}), code
 
 # API Routes:
-@app.route("/user/<int: patient_id>") # GET: Get information about a specific patient
-def get_user(patient_id):
+@app.route("/user/<int: user_id>") # GET: Get information about a specific guardian
+def get_user(user_id):
     """
     Endpoint that returns the serialization of a specified user object
     """
-    patient = Patient.query.filter_by(id=patient_id).first()
-    if patient is None:
+    user = User.query.filter_by(id=user_id).first()
+    if user is None:
         return failure_response("Patient not found!")
-    return success_response(patient.serialize())
+    return success_response(user.serialize())
 
-@app.route("/user/") # POST: Create a user object
-def create_user():
+@app.route("/patients/") # POST: Create a patient object
+def create_patient():
     """
     Endpoint that creates a new user object
     """
     body = json.loads(request.data)
-    username = body.get("username")
-    if username is None:
-        failure_response("You did not enter a username", 400)
-
-    password = body.get("password")
-    if password is None:
-        failure_response("You did not enter a password", 400)
-
     fname = body.get("first name")
     if fname is None:
         failure_response("You did not enter a first (given) name", 400)
@@ -56,10 +48,6 @@ def create_user():
     lname = body.get("last name")
     if lname is None:
         failure_response("You did not enter a last (family) name", 400)
-
-    email = body.get("email")
-    if email is None:
-        failure_response("You did not enter an email", 400)
 
     birthdate = body.get("birthdate")
     if birthdate is None:
@@ -70,9 +58,6 @@ def create_user():
         failure_response("You did not enter a sex", 400)
 
     patient = Patient(
-        username=username,
-        password=password,
-        email=email,
         fname=fname,
         lname=lname,
         birthdate=birthdate,
