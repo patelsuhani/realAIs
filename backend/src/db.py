@@ -27,7 +27,6 @@ class User(db.Model):
     return {
       "id": self.id,
       "username": self.username,
-      "password": self.password,
       "email": self.email
     }
   
@@ -42,13 +41,16 @@ class Patient(db.Model):
   birthdate = db.Column(db.Date)
   sex = db.Column(db.String, nullable=False)
 
-
   user_id = db.Column(db.ForeignKey("users.id"))
+  username = db.Column(db.ForeignKey("users.username"))
+  email = db.Column(db.ForeignKey("users.email"))
 
   def __init__(self, **kwargs):
     """
     Initialize a patient object
     """
+    self.username = kwargs.get("username")
+    self.password = kwargs.get("")
     self.fname = kwargs.get("fname")
     self.lname = kwargs.get("lname")
     self.date = kwargs.get("date")
