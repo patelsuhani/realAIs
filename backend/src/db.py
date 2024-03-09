@@ -126,12 +126,23 @@ class Conditions(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String, nullable=False)
 
+  # Column representing risk severity of condition for a patient
+  risk = db.Column(db.String, nullable=False)
+
+  def __init__(self, **kwargs):
+    """
+    Initialize a condition object
+    """
+    self.name = kwargs.get("name")
+    self.risk = kwargs.get("risk")
+
   def returnName(self):
     """
     Returns the name of a given condition
     """
     return {
-      "name": self.name
+      "name": self.name,
+      "risk": self.risk
     }
 
 
