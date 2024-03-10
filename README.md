@@ -32,15 +32,15 @@ API Integration: Integration with external APIs was implemented to provide resou
 Frontend: JavaScript in React Native <br>
 Machine Learning: Google Cloud ML
 
-## How to Use
+<!-- ## How to Use -->
 
 ## Installation
-Clone the repository: 'git clone https://github.com/patelsuhani/realAIs.git'
-Navigate to the project directory: 'cd realAIs'
-Install dependencies: 'npm install'
-Start the application: 'npm start'
+Clone the repository: 'git clone https://github.com/patelsuhani/realAIs.git' <br>
+Navigate to the project directory: 'cd realAIs' <br>
+Install dependencies: 'npm install' <br>
+Start the application: 'npm start' <br>
 
-## Feedback
+<!-- ## Feedback -->
 
 ## License
 This project is licensed under the MIT License.
