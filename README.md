@@ -2,6 +2,12 @@
 
 ### Contribution: [Suhani Patel](https://github.com/patelsuhani/), [Rishi Shah](https://github.com/rishis123/), [Saanvi Mehra](https://github.com/saanvimehra), [Chimdi Ejiogu](https://github.com/cejiogu/), [Dwight Koyner](https://github.com/dwightkoyner/)
 
+## Notes
+
+Please refer to the code in the master branch and not the main branch.
+
+Because this is in a mono repo we had to remove react, react-dom, and react-native-web deps and change metro.config.js a bit.
+
 ## Introduction
 RealAIs is an application designed to aid in the early diagnosis of congenital disorders in children aged from just born to 5 years old. It empowers parents and healthcare providers by providing them with a tool to screen for potential health concerns in the children, enabling timely intervention and support.
 
