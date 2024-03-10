@@ -3,7 +3,7 @@
 ### Contribution: [Suhani Patel](https://github.com/patelsuhani/), [Rishi Shah](https://github.com/rishis123/), [Saanvi Mehra](https://github.com/saanvimehra), [Chimdi Ejiogu](https://github.com/cejiogu/), [Dwight Koyner](https://github.com/dwightkoyner/)
 
 ## Introduction
-RealAIs is an application designed to aid in the early diagnosis of congenital disorders in children aged from just born to 5 years old. It empowers parents and healthcare providers by providing them with a tool to screen for potential health concerns in their children, enabling timely intervention and support.
+RealAIs is an application designed to aid in the early diagnosis of congenital disorders in children aged from just born to 5 years old. It empowers parents and healthcare providers by providing them with a tool to screen for potential health concerns in the children, enabling timely intervention and support.
 
 ## Description
 RealAIs allows parents to input detailed information about their child, including age, gender, race, ethnicity, behavioral patterns, and completion of expected milestones. By capturing images of the child's front and side profile views and running them through machine learning algorithms, the app calculates the likelihood of the child having specific congenital disorders.
@@ -29,7 +29,7 @@ Backend Services: Backend services were developed to handle user authentication,
 API Integration: Integration with external APIs was implemented to provide resources, information, and contact details for further assistance to parents. This involved communication with healthcare providers, hospitals, and support organizations.
 
 ## Technology Stack
-Frontend: JavaScript in React Native
+Frontend: JavaScript in React Native <br>
 Machine Learning: Google Cloud ML
 
 ## How to Use
