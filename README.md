@@ -35,7 +35,7 @@ Machine Learning: Google Cloud ML
 ## How to Use
 
 ## Installation
-Clone the repository: 'git clone https://github.com/your-username/realAIs.git'
+Clone the repository: 'git clone https://github.com/patelsuhani/realAIs.git'
 Navigate to the project directory: 'cd realAIs'
 Install dependencies: 'npm install'
 Start the application: 'npm start'
